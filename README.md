@@ -9,7 +9,7 @@ It automatically detects whether the file contains searchable text or scanned im
 
 Below is the flowchart representing the process pipeline of **Vehicle Inspection Analyzer**:
 
-<img width="373" height="724" alt="Image" src="https://github.com/user-attachments/assets/89f3fb49-e688-43e3-ba11-64f46177a90c" />
+<img width="200" alt="System Flowchart" src="https://github.com/user-attachments/assets/89f3fb49-e688-43e3-ba11-64f46177a90c" />
 
 ---
 
@@ -82,14 +82,17 @@ Go to:
 http://127.0.0.1:8000/docs
 Upload your PDF or image under the /analyze-report endpoint and click Execute.
 
-**Example of pdf upload and image uploads
+#### Example Uploads (PDF & Images)
 
-|<img width="492" height="833" alt="Image" src="https://github.com/user-attachments/assets/432f7853-b012-417a-9fde-e4ffe64680d4" />|<img width="456" height="720" alt="Image" src="https://github.com/user-attachments/assets/8742d487-fadb-48f4-a3b5-a9ef851fce19" />|img width="492" height="840" alt="Image" src="https://github.com/user-attachments/assets/889800d6-8a13-4b8e-bcf4-734446e6410c" />|
+| **PDF Report** | **Scanned Image** |
+|----------------|-------------------|
+| <img width="180" alt="PDF Example" src="https://github.com/user-attachments/assets/432f7853-b012-417a-9fde-e4ffe64680d4" /> | <img width="180" alt="Scanned Image" src="https://github.com/user-attachments/assets/8742d487-fadb-48f4-a3b5-a9ef851fce19" /> |
 
 ## Notes 
 
 - Only main.py, requirements.txt, and .env are required for backend deployment.
-- generate_report.py can be used for offline testing or debugging without FastAPI.
+- Example reports folder has both pdf and images of Vehicle Inspection reports. Use it for testing.
+- generate_report.py can be used for testing or debugging without FastAPI.
 - Logs are saved automatically to scanno_ai.log in the root folder.
 - Logging can be modified or disabled via logging.basicConfig in main.py.
 
