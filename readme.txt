@@ -1,126 +1,97 @@
-# Scanno AI Backend  
-**Secure, JSON-only AI Analysis Engine for Vehicle Inspection Reports**
+# Vehicle Inspection Analyzer
+
+Vehicle Inspection Analyzer is an AI-powered backend service that analyzes **vehicle inspection reports** (PDFs or images) using **OpenAI GPT-4o**.  
+It automatically detects whether the file contains searchable text or scanned images, then extracts insights such as condition summary, risks, and maintenance recommendations.
 
 ---
 
-## Overview
-This is the **AI backend** for Scanno — a vehicle inspection assistant.  
-It receives **extracted report text** (from PDF or image OCR) via JSON and returns **structured professional analysis** using **GPT-4o**.
+## System Overview
 
-**No files are uploaded. No data is stored. 100% privacy.**
+Below is the flowchart representing the process pipeline of **Vehicle Inspection Analyzer**:
 
----
-## Flowchart
-
-
-
-
-
+<img width="373" height="724" alt="Image" src="https://github.com/user-attachments/assets/89f3fb49-e688-43e3-ba11-64f46177a90c" />
 
 ---
 
-## File Structure
-```bash
-├── backend_ai.py          ← Main FastAPI server (single file)
-├── .env                   ← Your OpenAI key (never commit!)
-└──requirements.txt       ← Python dependencies
+## Project Structure
 
-text---
+```text
+Vehicle Inspection Analyzer/
+│
+├── main.py                 # FastAPI backend for vehicle report analysis
+├── generate_report.py      # Standalone script (non-API version)
+│
+├── output/
+│   └── car_condition_report.json  # Saved AI report (if enabled)
+│
+├── .env                    # Environment variables (API keys, config)
+├── requirements.txt        # Python dependencies
+├── scanno_ai.log           # Log file for analysis activity
+├── readme.txt
+└── README.md               # This file
+```
+
+
+---
 
 ## Features
-| Feature | Status |
-|-------|--------|
-| JSON Input/Output | Yes |
-| GPT-4o Analysis | Yes |
-| Fixed Professional Prompt | Yes |
-| No File Storage | Yes |
-| CORS Enabled | Yes |
-| `.env` Key Loading | Yes |
-| cURL / Frontend Ready | Yes |
+
+- Upload **PDF** or **image** (JPG, PNG) of vehicle inspection reports  
+- Automatically detects **scanned vs. text PDFs**  
+- Uses **GPT-4o Vision** for scanned reports and **GPT-4o Text** for searchable ones  
+- Returns **structured JSON output**:
+
+```json
+{
+  "summary": "1-line car condition",
+  "risk_level": "Low|Medium|High|Critical",
+  "issues": ["list of detected problems"],
+  "maintenance": ["recommended actions"],
+  "recommendation": "final verdict"
+}
+```
+- Ready to integrate into web or mobile frontends
+- Built-in retry, error logging, and JSON validation
+
 
 ---
 
-## Setup (One-Time)
-
-### 1. Install Dependencies
-```bash
+## Backend Development Setup
+###1. Install Dependencies
+``` bash
 pip install -r requirements.txt
 ```
-2. Create .env
+
+### 2. Create .env File
+Create a .env file in the project root:
+```text
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+### 3. Run FastAPI Backend
 ```bash
-OPENAI_API_KEY=sk-your-real-key-here
-
-## Run the Server
-```bash
-uvicorn backend_ai.py:app --reload --port=8000
-
-**Server runs at:** http://localhost:8000
-Interactive docs: http://localhost:8000/docs
-
-## API Endpoint
-### POST /analyze
-**Request (JSON)**
-```json
-{
-  "report_text": "Engine oil low. Brake pads 20%. Tire tread 3mm.",
-  "user_query": "Should I buy this car?"
-}
+uvicorn main:app --reload
 ```
-**Response (JSON)**
-```json
-{
-  "summary": "Engine oil is low and brakes are worn.",
-  "risk_level": "Medium",
-  "issues": [
-    "Engine oil level is below recommended.",
-    "Brake pads are at 20% efficiency."
-  ],
-  "maintenance": [
-    "Refill engine oil to the appropriate level.",
-    "Replace brake pads to ensure optimal braking performance."
-  ],
-  "recommendation": "Address the issues before driving long distances; short trips may be manageable with caution."
-}
-```
+The backend runs on: http://127.0.0.1:8000
 
-**Test with cURL**
-```bash
-curl -X POST http://localhost:8000/analyze \
-  -H "Content-Type: application/json" \
-  -d '{
-    "report_text": "Engine oil low. Brakes 20%.",
-    "user_query": "Is it safe?"
-  }'
-```
+---
 
-## For Frontend Developers
+### 4. Test the API
+**Using Swagger UI**
+Go to:
+http://127.0.0.1:8000/docs
+Upload your PDF or image under the /analyze-report endpoint and click Execute.
 
-- Send only text — no files.
-- Use fetch or axios:
-```js
-const res = await fetch('http://localhost:8000/analyze', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    report_text: extractedText,
-    user_query: 'Analyze this'
-  })
-});
-const data = await res.json();
-```
+**Example of pdf upload and image uploads
 
-## Security & Privacy
+|<img width="492" height="833" alt="Image" src="https://github.com/user-attachments/assets/432f7853-b012-417a-9fde-e4ffe64680d4" />|<img width="456" height="720" alt="Image" src="https://github.com/user-attachments/assets/8742d487-fadb-48f4-a3b5-a9ef851fce19" />|img width="492" height="840" alt="Image" src="https://github.com/user-attachments/assets/889800d6-8a13-4b8e-bcf4-734446e6410c" />|
 
-| Feature                     | Implemented |
-|----------------------------|-------------|
-| No file upload to server   | Yes         |
-| No report text logging     | Yes         |
-| API key stored in `.env`   | Yes         |
-| CORS enabled (`*`)         | Yes (restrict in production) |
-| Client-side OCR & PDF processing | Yes (handled by frontend) |
-| No persistent storage      | Yes         |
+## Notes 
 
-> **Privacy by Design**: Only extracted **text** is sent. Nothing is saved.
+- Only main.py, requirements.txt, and .env are required for backend deployment.
+- generate_report.py can be used for offline testing or debugging without FastAPI.
+- Logs are saved automatically to scanno_ai.log in the root folder.
+- Logging can be modified or disabled via logging.basicConfig in main.py.
 
 
 ## Summary:
