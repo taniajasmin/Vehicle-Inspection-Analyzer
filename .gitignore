@@ -1,0 +1,4 @@
+.env
+__pycache__
+car_condition_report.json
+scanno_ai.log

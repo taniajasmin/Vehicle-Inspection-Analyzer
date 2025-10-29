@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+openai
+python-dotenv
+pydantic
+
+########
+
+pdfplumber
+pillow
+# pytesseract
+tenacity
