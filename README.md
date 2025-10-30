@@ -99,7 +99,7 @@ Upload your PDF or image under the /analyze-report endpoint and click Execute.
 
 Scanno AI is optimized for accuracy and performance, but the following limitations apply:
 - Supported Files: Only .pdf, .jpg, .jpeg, and .png files are accepted.
-- File Size: Large reports (≈50 MB +) may fail or timeout due to API limits.
+- File Size: No hardcoded limitations but FastAPi has some of its own. Large reports (≈50 MB +) may fail or timeout due to API limits.
 - Token Limit: gpt-4o supports up to ~128k tokens (~300 pages). Very long reports should be summarized in chunks.
 - Retries: Each request retries up to 3 times on network/API failure.
 - No Memory: Every request is stateless; Scanno does not store or recall previous uploads.
