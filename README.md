@@ -31,7 +31,6 @@ Vehicle Inspection Analyzer/
 └── README.md               # This file
 ```
 
-
 ---
 
 ## Features
@@ -96,6 +95,16 @@ Upload your PDF or image under the /analyze-report endpoint and click Execute.
 - Logs are saved automatically to scanno_ai.log in the root folder.
 - Logging can be modified or disabled via logging.basicConfig in main.py.
 
+## Limitations
+
+Scanno AI is optimized for accuracy and performance, but the following limitations apply:
+- Supported Files: Only .pdf, .jpg, .jpeg, and .png files are accepted.
+- File Size: Large reports (≈50 MB +) may fail or timeout due to API limits.
+- Token Limit: gpt-4o supports up to ~128k tokens (~300 pages). Very long reports should be summarized in chunks.
+- Retries: Each request retries up to 3 times on network/API failure.
+- No Memory: Every request is stateless; Scanno does not store or recall previous uploads.
+- Fixed Personality: Scanno always speaks as “your smart car inspection expert in Qatar.” Behavior and tone are not configurable.
+- Local Logging: Logs are written to scanno_ai.log; persistent storage depends on your hosting environment.
 
 ## Summary:
 - AI backend is production-ready.
